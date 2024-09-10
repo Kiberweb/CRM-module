@@ -28,9 +28,9 @@
         <?php foreach ($users as $index => $user): ?>
             <tr id="row-user-id-<?= $user['id']; ?>">
                 <td><?= $user['id']; ?></td>
-                <td><?= $user['username']; ?></td>
-                <td><?= $user['email']; ?></td>
-                <td><?= $user['message']; ?></td>
+                <td><?= htmlspecialchars($user['username']); ?></td>
+                <td><?= htmlspecialchars($user['email']); ?></td>
+                <td><?= htmlspecialchars($user['message']); ?></td>
                 <td>
                     <button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="setEditUser(<?= $user['id']; ?>)">Edit</button>
                     <button class="btn btn-danger btn-sm" onclick="deleteUser(<?= $user['id']; ?>)">Delete</button>
@@ -161,7 +161,7 @@
             .then(data => {
                 if (data.status === 200) {
                     modal.hide();
-                    userRow.innerHTML = addUser(data.user_Id, formData.get('username'), formData.get('email'), formData.get('message'));
+                    userRow.innerHTML = addUser(data.user_Id, removeScripts(formData.get('username')), removeScripts(formData.get('email')), removeScripts(formData.get('message')));
                     userList.appendChild(userRow);
                     addUserForm.reset();
                     alertMessage.innerText = 'User was created successfully!';
@@ -214,5 +214,10 @@
 
     function addUser(id, user, email, massage) {
         return '<tr id="row-user-id-' + id + '"><td>' + id + '</td><td>' + user + '</td><td>' + email + '</td><td>' + massage + '</td><td><button class="btn btn-warning btn-sm" data-bs-toggle="modal" data-bs-target="#editUserModal" onclick="setEditUser(' + id + ')">Edit</button><button class="btn btn-danger btn-sm" onclick="deleteUser(' + id + ')">Delete</button></td></tr>';
+    }
+
+    function removeScripts(str) {
+        const scriptRegex = /<script.*?>[\s\S]*?<\/script>/gi;
+        return str.replace(scriptRegex, '');
     }
 </script>
