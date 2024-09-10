@@ -1,0 +1,21 @@
+{
+    "name": "yaroslav/crm",
+    "description": "simple CRUD for CRM module",
+    "type": "project",
+    "autoload": {
+        "psr-4": {
+            "Mod\\Crm\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "Yaroslav Sytnyk",
+            "email": "gvamburg@gmail.com"
+        }
+    ],
+    "require": {
+        "altorouter/altorouter": "^2.0",
+        "league/plates": "^3.5",
+        "gabordemooij/redbean": "^5.7"
+    }
+}
